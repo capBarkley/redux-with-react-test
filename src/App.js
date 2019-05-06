@@ -11,6 +11,22 @@ class App extends React.Component {
         <button onClick={this.props.onUp}>UP</button>
         <button onClick={this.props.onDown}>DOWN</button><br/>
         <button onClick={this.props.clear}>CLEAR</button>
+        <button onClick={this.props.reset}>RESET</button>
+        <hr/>
+        <div className="history">
+          <span>History</span>
+          <ul className="historyList">
+            {
+              this.props.history.map(el => (
+                <li
+                  key={el.id}
+                  onClick={() => {this.props.onDel(el.id)}}>
+                  {el.count}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
       </div>
     );
   }
@@ -18,7 +34,8 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    count: state.count
+    count: state.count,
+    history: state.history
   }
 }
 
@@ -26,7 +43,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onUp: () => dispatch({type: 'UP', value: 1}),
     onDown: () => dispatch({type: 'DOWN', value: 1}),
-    clear: () => dispatch({type: 'CLEAR'})
+    clear: () => dispatch({type: 'CLEAR'}),
+    onDel: (id) => dispatch({type: 'DEL', key: id}),
+    reset: () => dispatch({type: 'RESET'})
   }
 }
 
