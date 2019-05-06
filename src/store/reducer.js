@@ -13,6 +13,9 @@ const reducer = (state = initialState, action) => {
         case 'DOWN': 
             newState.count-= action.value;
             break;
+        case 'CLEAR':
+            newState.count = 0;
+            break;
     }
 
     return newState;
